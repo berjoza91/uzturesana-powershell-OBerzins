@@ -1,0 +1,39 @@
+PS C:\Users\oskar> [CmdletBinding(SupportsShouldProcess = $true)]
+>> param()
+PS C:\Users\oskar>
+PS C:\Users\oskar> $servisi = Get-CimInstance -ClassName Win32_Service |
+>>     Where-Object {
+>>         $_.StartMode -eq "Auto" -and
+>>         $_.State -eq "Stopped"
+>>     }
+PS C:\Users\oskar>
+PS C:\Users\oskar> if ($servisi.Count -eq 0) {
+>>     Write-Output "Nav apturētu automātisko servisu."
+>> }
+PS C:\Users\oskar> else {
+>>     foreach ($serviss in $servisi) {
+>>         Write-Output "Atrasts: $($serviss.Name)"
+>>
+>>         if ($PSCmdlet.ShouldProcess(
+>>             $serviss.Name,
+>>             "Palaist servisu"
+>>         )) {
+>>             try {
+>>                 Start-Service -Name $serviss.Name -ErrorAction Stop
+>>                 Write-Output "Palaišanas komanda izpildīta."
+>>             }
+>>             catch {
+>>                 Write-Output "Neizdevās palaist: $($serviss.Name)"
+>>                 Write-Output "Iemesls: $($_.Exception.Message)"
+>>             }
+>>         }
+>>     }
+>> }
+else : The term 'else' is not recognized as the name of a cmdlet, function, script file, or operable
+program. Check the spelling of the name, or if a path was included, verify that the path is correct
+and try again.
+At line:1 char:1
++ else {
++ ~~~~
+    + CategoryInfo          : ObjectNotFound: (else:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
