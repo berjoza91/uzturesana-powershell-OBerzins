@@ -1,0 +1,37 @@
+PS C:\Users\oskar> $robezaGB = 10
+PS C:\Users\oskar>
+PS C:\Users\oskar> $diski = Get-CimInstance -ClassName Win32_LogicalDisk |
+>>     Where-Object { $_.DriveType -eq 3 }
+PS C:\Users\oskar>
+PS C:\Users\oskar> foreach ($disks in $diski) {
+>>     $kopejaisGB = [math]::Round(
+>>         $disks.Size / 1GB, 2
+>>     )
+>>
+>>     $brivaVietaGB = [math]::Round(
+>>         $disks.FreeSpace / 1GB, 2
+>>     )
+>>
+>>     Write-Output "Disks: $($disks.DeviceID)"
+>>     Write-Output "Kopējais izmērs: $kopejaisGB GB"
+>>     Write-Output "Brīvā vieta: $brivaVietaGB GB"
+>>
+>>     if ($brivaVietaGB -lt $robezaGB) {
+>>         Write-Output "BRĪDINĀJUMS: diskā ir maz brīvas vietas!"
+>>     }
+>>     else {
+>>         Write-Output "Brīvās vietas ir pietiekami."
+>>     }
+>>
+>>     Write-Output "-----------------------------"
+>> }
+Disks: C:
+Kopējais izmērs: 464.75 GB
+Brīvā vieta: 82.61 GB
+Brīvās vietas ir pietiekami.
+-----------------------------
+Disks: D:
+Kopējais izmērs: 931.5 GB
+Brīvā vieta: 610.42 GB
+Brīvās vietas ir pietiekami.
+-----------------------------
