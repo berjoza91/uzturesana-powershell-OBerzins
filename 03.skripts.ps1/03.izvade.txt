@@ -1,0 +1,32 @@
+PS C:\Users\oskar> $servisi = Get-Service
+PS C:\Users\oskar>
+PS C:\Users\oskar> $darbojas = 0
+PS C:\Users\oskar> $aptureti = 0
+PS C:\Users\oskar> $kopejais = 0
+PS C:\Users\oskar>
+PS C:\Users\oskar> foreach ($serviss in $servisi) {
+>>     $kopejais++
+>>
+>>     if ($serviss.Status -eq "Running") {
+>>         $darbojas++
+>>     }
+>>     elseif ($serviss.Status -eq "Stopped") {
+>>         $aptureti++
+>>     }
+>> }
+PS C:\Users\oskar>
+PS C:\Users\oskar> Write-Output "Kopējais servisu skaits: $kopejais"
+Kopējais servisu skaits: 305
+PS C:\Users\oskar> Write-Output "Darbojas: $darbojas"
+Darbojas: 120
+PS C:\Users\oskar> Write-Output "Apturēti: $aptureti"
+Apturēti: 185
+PS C:\Users\oskar>
+PS C:\Users\oskar> if (($darbojas + $aptureti) -eq $kopejais) {
+>>     Write-Output "Pārbaude: skaits sakrīt."
+>> }
+Pārbaude: skaits sakrīt.
+PS C:\Users\oskar> else {
+>>     Write-Output "Pārbaude: skaits nesakrīt."
+>>     Write-Output "Dažiem servisiem var būt cits statuss."
+>> }
