@@ -1,0 +1,27 @@
+PS C:\Users\oskar> $procesi = Get-Process |
+>>     Sort-Object -Property WorkingSet64 -Descending |
+>>     Select-Object -First 10
+PS C:\Users\oskar>
+PS C:\Users\oskar> foreach ($process in $procesi) {
+>>     $atminaMB = [math]::Round(
+>>         $process.WorkingSet64 / 1MB, 2
+>>     )
+>>
+>>     Write-Output (
+>>         "Nosaukums: {0}; ID: {1}; Atmiņa: {2} MB" -f
+>>         $process.ProcessName,
+>>         $process.Id,
+>>         $atminaMB
+>>     )
+>> }
+Nosaukums: Memory Compression; ID: 3244; Atmiņa: 1171.65 MB
+Nosaukums: Discord; ID: 22532; Atmiņa: 956.79 MB
+Nosaukums: Spotify; ID: 40816; Atmiņa: 635.25 MB
+Nosaukums: Spotify; ID: 10932; Atmiņa: 549.45 MB
+Nosaukums: opera; ID: 20172; Atmiņa: 385.64 MB
+Nosaukums: explorer; ID: 10396; Atmiņa: 385.61 MB
+Nosaukums: Discord; ID: 2332; Atmiņa: 331.09 MB
+Nosaukums: MsMpEng; ID: 10704; Atmiņa: 330.34 MB
+Nosaukums: opera; ID: 25676; Atmiņa: 324.03 MB
+Nosaukums: ChatGPT; ID: 31132; Atmiņa: 309.09 MB
+PS C:\Users\oskar>
