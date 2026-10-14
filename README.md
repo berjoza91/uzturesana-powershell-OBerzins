@@ -1,0 +1,76 @@
+1. uzdevums
+
+Ja skriptu palaišanu bloķē izpildes politika, pārbaudi to ar Get-ExecutionPolicy. Nemaini datora drošības iestatījumus uzreiz — vispirms pārbaudi, kāda kļūda parādās.
+
+1.skripts 
+
+Kā tas darbojas?
+- Get-CimInstance iegūst operētājsistēmas informāciju.
+- $env:COMPUTERNAME iegūst datora nosaukumu.
+- $PSVersionTable.PSVersion parāda PowerShell versiju.
+- Get-Process iegūst procesus, bet .Count tos saskaita.
+
+2.skripts
+
+Paskaidrojums:
+- Get-Member ļauj apskatīt procesa objektam pieejamos laukus.
+- WorkingSet64 norāda procesa izmantoto fizisko atmiņu baitos.
+- Sort-Object -Descending sakārto procesus no lielākā uz mazāko.
+- Select-Object -First 10 atlasa desmit pirmos.
+
+3.skripts 
+
+Pārbaudi, vai visu servisu skaits sakrīt ar darbojošos un apturēto servisu summu. Ja nesakrīt, paskaidro, ka daži servisi var atrasties citā stāvoklī, piemēram, StartPending vai StopPending.
+
+4.skripts 
+
+-WhatIf ir paredzēts darbības simulēšanai. Reālā palaišana var prasīt administratora tiesības, un daži servisi var atteikties startēties. Pārbaudi abu failu saturu un nepalaid nevajadzīgus sistēmas servisus tikai tāpēc, lai iegūtu citu izvadi.
+
+5.skripts
+
+Skripts izmanto Get-Date un metodi AddHours(-48), lai noteiktu laika perioda sākumu. Ar Get-WinEvent tiek atlasīti System žurnāla kļūdu ieraksti.
+
+Ar foreach ciklu tiek saskaitīts, cik reižu katrs notikuma avots parādās.
+
+Mana datora rezultāts: pēdējo 48 stundu laikā atrasto kļūdu ierakstu skaits ir jāieraksta pēc skripta palaišanas.
+
+Secinājums: kļūdu skaits parāda reģistrētos sistēmas notikumus, bet pats par sevi vēl nenozīmē, ka dators nedarbojas pareizi.
+
+6.skripts 
+
+Pārbaudi, vai izveidojās draiveri.csv un izvade.txt.
+Ko darīt tālāk? Atver draiveri.csv, izvēlies vienu draiveri, noskaidro, kurai ierīcei tas pieder, un ieraksti secinājumu 06/SKAIDROJUMS.md. Piemēram, ja sarakstā ir konkrētas grafiskās kartes draiveris, noskaidro tā ierīces nosaukumu un ražotāju. Neizdomā ierīci, pirms neesi apskatījis sava datora rezultātus.
+
+7.skripts
+
+Kā tas darbojas?
+- Win32_LogicalDisk ļauj iegūt loģisko disku informāciju.
+- DriveType -eq 3 atlasa lokālos cietos diskus.
+- FreeSpace norāda brīvo vietu baitos.
+- $robezaGB ļauj viegli mainīt brīdinājuma robežu. Šajā piemērā tā ir 10 GB.
+Ja brīvā vieta ir mazāka par 10 GB, tiek izvadīts brīdinājums.
+
+8.skripts
+
+Rezultāts būs redzams PowerShell logā un saglabāts 08\izvade.txt.
+Piezīme: izpildes laiks var mainīties katrā palaišanas reizē, tāpēc neieraksti secinājumā iepriekš izdomātu ātrāko metodi. Izmanto savu izmērīto rezultātu.
+
+9.skripts 
+
+Ja kāda procesa īpašnieku nevar noteikt, tas nav automātiski pierādījums, ka sistēma nedarbojas pareizi. Dažiem sistēmas procesiem var būt ierobežotas piekļuves tiesības, un process var pazust arī skripta izpildes laikā.
+
+10.skripts
+
+Skripts atkārtoti izpilda 1., 3., 5. un 7. uzdevumu un apkopo to izvades failā izvade.txt.
+
+Salīdzinājums:
+
+1. uzdevums: parāda sistēmas informāciju un aktīvo procesu skaitu. Procesu skaits var mainīties, jo programmas tiek palaistas un aizvērtas.
+
+3. uzdevums: parāda darbojošos un apturēto servisu skaitu. Rezultāti var mainīties, jo servisi var sākt vai pārtraukt darbu.
+
+5. uzdevums: parāda pēdējo 48 stundu laikā reģistrētās sistēmas kļūdas. Rezultāts ir atkarīgs no žurnālā reģistrētajiem notikumiem un izvēlētā laika perioda.
+
+7. uzdevums: parāda disku kopējo un brīvo vietu. Brīvā vieta var mainīties, saglabājot vai dzēšot failus.
+
+Secinājums: atšķirības starp izvadiem var rasties sistēmas aktivitātes, pagājušā laika, jaunu notikumu un diska izmantošanas dēļ. Konkrētās atšķirības jānosaka, salīdzinot mana datora rezultātus.
