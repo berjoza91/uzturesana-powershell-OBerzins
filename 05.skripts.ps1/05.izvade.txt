@@ -1,0 +1,41 @@
+PS C:\Users\oskar> $sakums = (Get-Date).AddHours(-48)
+PS C:\Users\oskar>
+PS C:\Users\oskar> try {
+>>     $kludas = @(
+>>         Get-WinEvent -FilterHashtable @{
+>>             LogName   = "System"
+>>             Level     = 2
+>>             StartTime = $sakums
+>>         } -ErrorAction Stop
+>>     )
+>>
+>>     Write-Output "Laika periods: no $sakums līdz $(Get-Date)"
+>>     Write-Output "Kopējais kļūdu ierakstu skaits: $($kludas.Count)"
+>>
+>>     $avoti = @{}
+>>
+>>     foreach ($kluda in $kludas) {
+>>         $avots = $kluda.ProviderName
+>>
+>>         if ($avoti.ContainsKey($avots)) {
+>>             $avoti[$avots]++
+>>         }
+>>         else {
+>>             $avoti[$avots] = 1
+>>         }
+>>     }
+>>
+>>     foreach ($avots in ($avoti.Keys | Sort-Object)) {
+>>         Write-Output "$avots : $($avoti[$avots]) kļūdas"
+>>     }
+>> }
+>> catch {
+>>     Write-Output "Neizdevās nolasīt sistēmas žurnālu."
+>>     Write-Output "Iemesls: $($_.Exception.Message)"
+>> }
+Laika periods: no 10/12/2026 17:57:22 līdz 10/14/2026 17:57:23
+Kopējais kļūdu ierakstu skaits: 16
+Microsoft-Windows-DistributedCOM : 10 kļūdas
+Microsoft-Windows-WindowsUpdateClient : 3 kļūdas
+Service Control Manager : 3 kļūdas
+PS C:\Users\oskar>
