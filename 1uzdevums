@@ -1,0 +1,10 @@
+New-Item -ItemType Directory -Path "$HOME\uzturesana-powershell-uzvards" -Force
+Set-Location "$HOME\uzturesana-powershell-uzvards"
+
+Izveido 10 uzdevumu mapes
+   ForEach-Object {
+    $mapesNosaukums = "{0:D2}" -f $_
+    New-Item -ItemType Directory -Path $mapesNosaukums -Force
+}
+
+Get-ChildItem -Directory
