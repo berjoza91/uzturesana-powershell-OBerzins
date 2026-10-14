@@ -1,0 +1,16 @@
+PS C:\Users\oskar> $os = Get-CimInstance -ClassName Win32_OperatingSystem
+PS C:\Users\oskar> $procesi = Get-Process
+PS C:\Users\oskar> $atmina = $procesi.Count
+PS C:\Users\oskar> $palaidesLaiks = $os.LastBootUpTime
+PS C:\Users\oskar>
+PS C:\Users\oskar> Write-Output "Datora nosaukums: $env:COMPUTERNAME"
+Datora nosaukums: DESKTOP-J4MGLHN
+PS C:\Users\oskar> Write-Output "Operētājsistēma: $($os.Caption)"
+Operētājsistēma: Microsoft Windows 11 Pro
+PS C:\Users\oskar> Write-Output "Būvējuma numurs: $($os.BuildNumber)"
+Būvējuma numurs: 26200
+PS C:\Users\oskar> Write-Output "PowerShell versija: $($PSVersionTable.PSVersion)"
+PowerShell versija: 5.1.26100.9444
+PS C:\Users\oskar> Write-Output "Pēdējās palaišanas laiks: $palaidesLaiks"
+Pēdējās palaišanas laiks: 10/09/2026 20:54:02
+PS C:\Users\oskar> Write-Output "Pašlaik darbojas procesu skaits: $atmina"
