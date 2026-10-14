@@ -1,0 +1,133 @@
+PS C:\Users\oskar> $sakne = Split-Path -Parent $PSScriptRoot
+Split-Path : Cannot bind argument to parameter 'Path' because it is an empty string.
+At line:1 char:29
++ $sakne = Split-Path -Parent $PSScriptRoot
++                             ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Split-Path], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorEmptyStringNotAllowed,Microsoft.PowerS
+   hell.Commands.SplitPathCommand
+
+PS C:\Users\oskar> $izvadesFails = Join-Path $PSScriptRoot "izvade.txt"
+Join-Path : Cannot bind argument to parameter 'Path' because it is an empty string.
+At line:1 char:27
++ $izvadesFails = Join-Path $PSScriptRoot "izvade.txt"
++                           ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Join-Path], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorEmptyStringNotAllowed,Microsoft.PowerS
+   hell.Commands.JoinPathCommand
+
+PS C:\Users\oskar>
+PS C:\Users\oskar> $uzdevumi = @(
+>>     @{ Nr = 1; Nosaukums = "Sistēmas apraksts"; Mape = "01" }
+>>     @{ Nr = 3; Nosaukums = "Servisu skaitīšana"; Mape = "03" }
+>>     @{ Nr = 5; Nosaukums = "Sistēmas žurnāla kļūdas"; Mape = "05" }
+>>     @{ Nr = 7; Nosaukums = "Diska vieta"; Mape = "07" }
+>> )
+PS C:\Users\oskar>
+PS C:\Users\oskar> $kopsavilkums = foreach ($uzdevums in $uzdevumi) {
+>>     $skriptaFails = Join-Path $sakne (
+>>         "$($uzdevums.Mape)\skripts.ps1"
+>>     )
+>>
+>>     "========================================"
+>>     "Uzdevums $($uzdevums.Nr): $($uzdevums.Nosaukums)"
+>>     "========================================"
+>>
+>>     if (Test-Path $skriptaFails) {
+>>         try {
+>>             & $skriptaFails 2>&1 | Out-String
+>>         }
+>>         catch {
+>>             "Kļūda: $($_.Exception.Message)"
+>>         }
+>>     }
+>>     else {
+>>         "Nav atrasts skripts: $skriptaFails"
+>>     }
+>> }
+Join-Path : Cannot bind argument to parameter 'Path' because it is null.
+At line:2 char:31
++     $skriptaFails = Join-Path $sakne (
++                               ~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Join-Path], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorNullNotAllowed,Microsoft.PowerShell.Co
+   mmands.JoinPathCommand
+
+Test-Path : Cannot bind argument to parameter 'Path' because it is null.
+At line:10 char:19
++     if (Test-Path $skriptaFails) {
++                   ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Test-Path], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorNullNotAllowed,Microsoft.PowerShell.Co
+   mmands.TestPathCommand
+
+Join-Path : Cannot bind argument to parameter 'Path' because it is null.
+At line:2 char:31
++     $skriptaFails = Join-Path $sakne (
++                               ~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Join-Path], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorNullNotAllowed,Microsoft.PowerShell.Co
+   mmands.JoinPathCommand
+
+Test-Path : Cannot bind argument to parameter 'Path' because it is null.
+At line:10 char:19
++     if (Test-Path $skriptaFails) {
++                   ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Test-Path], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorNullNotAllowed,Microsoft.PowerShell.Co
+   mmands.TestPathCommand
+
+Join-Path : Cannot bind argument to parameter 'Path' because it is null.
+At line:2 char:31
++     $skriptaFails = Join-Path $sakne (
++                               ~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Join-Path], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorNullNotAllowed,Microsoft.PowerShell.Co
+   mmands.JoinPathCommand
+
+Test-Path : Cannot bind argument to parameter 'Path' because it is null.
+At line:10 char:19
++     if (Test-Path $skriptaFails) {
++                   ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Test-Path], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorNullNotAllowed,Microsoft.PowerShell.Co
+   mmands.TestPathCommand
+
+Join-Path : Cannot bind argument to parameter 'Path' because it is null.
+At line:2 char:31
++     $skriptaFails = Join-Path $sakne (
++                               ~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Join-Path], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorNullNotAllowed,Microsoft.PowerShell.Co
+   mmands.JoinPathCommand
+
+Test-Path : Cannot bind argument to parameter 'Path' because it is null.
+At line:10 char:19
++     if (Test-Path $skriptaFails) {
++                   ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Test-Path], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorNullNotAllowed,Microsoft.PowerShell.Co
+   mmands.TestPathCommand
+
+PS C:\Users\oskar>
+PS C:\Users\oskar> $kopsavilkums |
+>>     Set-Content -Path $izvadesFails -Encoding UTF8
+Set-Content : Cannot bind argument to parameter 'Path' because it is null.
+At line:2 char:23
++     Set-Content -Path $izvadesFails -Encoding UTF8
++                       ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Set-Content], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorNullNotAllowed,Microsoft.PowerShell.Co
+   mmands.SetContentCommand
+
+PS C:\Users\oskar>
+PS C:\Users\oskar> Get-Content $izvadesFails
+Get-Content : Cannot bind argument to parameter 'Path' because it is null.
+At line:1 char:13
++ Get-Content $izvadesFails
++             ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Get-Content], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorNullNotAllowed,Microsoft.PowerShell.Co
+   mmands.GetContentCommand
+
+PS C:\Users\oskar> Write-Output "Kopsavilkums saglabāts: $izvadesFails"
