@@ -1,0 +1,47 @@
+PS C:\Users\oskar> $rezultats | Tee-Object -FilePath $izvadesFails
+Tee-Object : Cannot bind argument to parameter 'FilePath' because it is null.
+At line:1 char:35
++ $rezultats | Tee-Object -FilePath $izvadesFails
++                                   ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Tee-Object], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorNullNotAllowed,Microsoft.PowerShell.Co
+   mmands.TeeObjectCommand
+
+PS C:\Users\oskar>
+PS C:\Users\oskar> if ($laiks1.TotalMilliseconds -lt $laiks2.TotalMilliseconds) {
+>>     "Ātrāka bija Get-Service metode." |
+>>         Add-Content $izvadesFails
+>> }
+Add-Content : Cannot bind argument to parameter 'Path' because it is null.
+At line:3 char:21
++         Add-Content $izvadesFails
++                     ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Add-Content], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorNullNotAllowed,Microsoft.PowerShell.Co
+   mmands.AddContentCommand
+
+PS C:\Users\oskar> elseif ($laiks2.TotalMilliseconds -lt $laiks1.TotalMilliseconds) {
+>>     "Ātrāka bija Get-CimInstance metode." |
+>>         Add-Content $izvadesFails
+>> }
+elseif : The term 'elseif' is not recognized as the name of a cmdlet, function, script file, or
+operable program. Check the spelling of the name, or if a path was included, verify that the path is
+correct and try again.
+At line:1 char:1
++ elseif ($laiks2.TotalMilliseconds -lt $laiks1.TotalMilliseconds) {
++ ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (elseif:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\Users\oskar> else {
+>>     "Abu metožu laiki bija vienādi." |
+>>         Add-Content $izvadesFails
+>> }
+else : The term 'else' is not recognized as the name of a cmdlet, function, script file, or operable
+program. Check the spelling of the name, or if a path was included, verify that the path is correct
+and try again.
+At line:1 char:1
++ else {
++ ~~~~
+    + CategoryInfo          : ObjectNotFound: (else:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
